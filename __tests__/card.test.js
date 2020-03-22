@@ -19,6 +19,15 @@ describe('crud routes', () => {
     return mongoose.connection.close();
   });
 
+  let card;
+  beforeEach(async () => {
+    card = await Card
+      .create({
+        cardPhrase: 'dentist',
+        category: 'person or place'
+      });
+  });
+
   it('creates a card', () => {
     return request(app)
       .post('/api/v1/card')
@@ -28,6 +37,19 @@ describe('crud routes', () => {
       })
       .then(res => {
         console.log(res.body, 'RES.BODY');
+        expect(res.body).toEqual({
+          _id: expect.any(String),
+          cardPhrase: 'dentist',
+          category: 'person or place',
+          __v: 0
+        });
+      });
+  });
+
+  it('gets one card', () => {
+    return request(app)
+      .get(`/api/v1/card/${card._id}`)
+      .then(res => {
         expect(res.body).toEqual({
           _id: expect.any(String),
           cardPhrase: 'dentist',
