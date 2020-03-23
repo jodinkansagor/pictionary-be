@@ -24,7 +24,7 @@ describe('crud routes', () => {
     card = await Card
       .create({
         cardPhrase: 'dentist',
-        category: 'person or place'
+        level: 'easy'
       });
   });
 
@@ -33,14 +33,14 @@ describe('crud routes', () => {
       .post('/api/v1/card')
       .send({
         cardPhrase: 'dentist',
-        category: 'person or place'
+        level: 'easy'
       })
       .then(res => {
         console.log(res.body, 'RES.BODY');
         expect(res.body).toEqual({
           _id: expect.any(String),
           cardPhrase: 'dentist',
-          category: 'person or place',
+          level: 'easy',
           __v: 0
         });
       });
@@ -53,7 +53,7 @@ describe('crud routes', () => {
         expect(res.body).toEqual({
           _id: expect.any(String),
           cardPhrase: 'dentist',
-          category: 'person or place',
+          level: 'easy',
           __v: 0
         });
       });
